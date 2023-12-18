@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class Leaderboard extends javax.swing.JFrame {
     private static String MYSQL_JDBC_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame";
+    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame_nyusahin";
     private static String MYSQL_DB_USER = "root";
     private static String MYSQL_DB_USER_PASSWORD = "";
 
@@ -23,12 +23,16 @@ public class Leaderboard extends javax.swing.JFrame {
      */
     public Leaderboard() {
         initComponents();
+        showRank();
+    }
+    
+    private void showRank(){
         try {
             Class.forName(MYSQL_JDBC_DRIVER_CLASS);
             Connection conn = DriverManager.getConnection(MYSQL_DB_URL, MYSQL_DB_USER, MYSQL_DB_USER_PASSWORD);
 
             // Query untuk mengambil data dari database
-            String query = "SELECT Nama, Score FROM user ORDER BY Score DESC LIMIT 10"; // Ubah nama_tabel dengan nama tabel Anda
+            String query = "SELECT u.Nama, s.skor FROM user u INNER JOIN skor s ON u.id = s.id ORDER BY s.skor DESC LIMIT 10"; // Ubah nama_tabel dengan nama tabel Anda
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
@@ -37,7 +41,7 @@ public class Leaderboard extends javax.swing.JFrame {
             StringBuilder leaderboardText = new StringBuilder("<html><body>");
             while (rs.next()) {
                 String username = rs.getString("Nama");
-                int score = rs.getInt("Score");
+                int score = rs.getInt("skor");
                 leaderboardText.append(username).append(" with score ").append(score).append("<br>");
             }
             leaderboardText.append("</body></html>");
@@ -138,7 +142,7 @@ public class Leaderboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         MainMenu main = new MainMenu();
         main.setLocationRelativeTo(null);
-        this.setVisible(false);
+        this.dispose();
         main.setVisible(true);   
     }//GEN-LAST:event_backButtonActionPerformed
 

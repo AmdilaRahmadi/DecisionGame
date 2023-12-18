@@ -48,7 +48,7 @@ public class Rules extends javax.swing.JFrame {
             + "6. If the player's points run out, the player will lose regardless of the number of levels passed<br>"
             + "7. The player has 7 chances to reset their selection. If the chance becomes 0, the player will lose.<br>"
             + "8. The player will succeed if they reach 21 levels<br>"
-            + "9. The champion will be determined by the number of points earned on the leaderboard<br>"
+            + "9. There are time limit when you start to choose your decision so...<br>"
             + "10. EXPLODE YOUR BRAIN</html>");
         rulesLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 2, 3, 2, new java.awt.Color(0, 204, 204)));
 
@@ -108,7 +108,7 @@ public class Rules extends javax.swing.JFrame {
         // TODO add your handling code here:
         MainMenu main = new MainMenu();
         main.setLocationRelativeTo(null);
-        this.setVisible(false);
+        this.dispose();
         main.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 

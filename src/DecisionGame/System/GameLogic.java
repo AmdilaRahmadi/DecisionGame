@@ -1,6 +1,7 @@
 package DecisionGame.System;
 
 import DecisionGame.View.*;
+import java.awt.BorderLayout;
 import java.util.Random;
 import javax.swing.*;
 import java.sql.*;
@@ -9,7 +10,7 @@ import java.util.Timer;
 
 public class GameLogic {
     private static String MYSQL_JDBC_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame";
+    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame_nyusahin";
     private static String MYSQL_DB_USER = "root";
     private static String MYSQL_DB_USER_PASSWORD = "";
     
@@ -20,7 +21,33 @@ public class GameLogic {
     static String Nama;
     
     public void Main() {
-        play();
+        JFrame frame = new JFrame("Countdown");
+        frame.setSize(200, 150);
+        frame.setLayout(new BorderLayout());
+
+        JLabel countdownLabel = new JLabel("Hitung mundur belum dimulai");
+        countdownLabel.setHorizontalAlignment(JLabel.CENTER);
+        frame.add(countdownLabel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+
+        Thread countdownThread = new Thread(() -> {
+            for (int i = 5; i > 0; i--) {
+                final int count = i;
+                SwingUtilities.invokeLater(() -> countdownLabel.setText("Starting in: " + count));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            SwingUtilities.invokeLater(() -> {
+                frame.dispose();
+                play(); // Memulai aktivitas bermain setelah hitung mundur selesai
+            });
+        });
+        countdownThread.start();
     }
 
     static void regist(){
@@ -74,51 +101,74 @@ public class GameLogic {
     }
     
     public static void leftChoice(){
-        if(tree.Left.ope == '-'){
-            tree.Start.value = tree.Start.value - tree.Left.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Left.ope == '+'){
-            tree.Start.value = tree.Start.value + tree.Left.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Left.ope == '/'){
-            tree.Start.value = tree.Start.value / tree.Left.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Left.ope == '*'){
-            tree.Start.value = tree.Start.value * tree.Left.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
+        switch (tree.Left.ope) {
+            case '-' -> {
+                tree.Start.value = tree.Start.value - tree.Left.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '+' -> {
+                tree.Start.value = tree.Start.value + tree.Left.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '/' -> {
+                tree.Start.value = tree.Start.value / tree.Left.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '*' -> {
+                tree.Start.value = tree.Start.value * tree.Left.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            default -> {
+            }
         }
         resetTimer();
     }
 
     public static void rightChoice(){
-        if(tree.Right.ope == '-'){
-            tree.Start.value = tree.Start.value - tree.Right.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Right.ope == '+'){
-            tree.Start.value = tree.Start.value + tree.Right.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Right.ope == '/'){
-            tree.Start.value = tree.Start.value / tree.Right.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
-        }
-        else if(tree.Right.ope == '*'){
-            tree.Start.value = tree.Start.value * tree.Right.value;
-            tree.Start.value = tree.Start.value - enemy;
-            Condition();
+        switch (tree.Right.ope) {
+            case '-' -> {
+                tree.Start.value = tree.Start.value - tree.Right.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '+' -> {
+                tree.Start.value = tree.Start.value + tree.Right.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '/' -> {
+                tree.Start.value = tree.Start.value / tree.Right.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            case '*' -> {
+                tree.Start.value = tree.Start.value * tree.Right.value;
+                tree.Start.value = tree.Start.value - enemy;
+                Condition();
+            }
+            default -> {
+            }
         }
         resetTimer();
+    }
+    
+    static void Condition(){
+        if(tree.Start.value > 0 && level <=20){
+            level++;
+            play();
+        }
+        else if(tree.Start.value > 0 && level > 20){
+            JOptionPane.showMessageDialog(null, "You Reaches Finish Line");
+            isOver();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Game Over");
+            isOver();
+        }
     }
 
     public static void Reset(){
@@ -142,13 +192,15 @@ public class GameLogic {
 
         timer = new Timer();
         TimerTask task = new TimerTask() {
-            int counter = 5;
+            int counter = 10;
 
+            @Override
             public void run() {
                 if (counter > 0) {
                     Game.timerLabel.setText("00.0" + counter);
                     counter--;
-                } else if(Game.val == true){
+                } 
+                else if(Game.val == true){
                     timer.cancel();
                 } 
                 else {
@@ -169,21 +221,6 @@ public class GameLogic {
     public static void Surender(){
         tree.Start.value = -100;
         isOver();
-    }
-
-    static void Condition(){
-        if(tree.Start.value > 0 && level <=20){
-            level++;
-            play();
-        }
-        else if(tree.Start.value > 0 && level > 20){
-            JOptionPane.showMessageDialog(null, "You Reaches Finish Line");
-            isOver();
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Game Over");
-            isOver();
-        }
     }
 
     public static void isOver(){
@@ -207,29 +244,29 @@ public class GameLogic {
             int highlv = level;
             int resetAtm = resetcount;
 
-            String updateQuery = "UPDATE user SET Score=?, HighLv=?, NumReset=? WHERE id=?";
+            String insertScoreQuery = "INSERT INTO skor (id, level, jumlah_reset, skor) VALUES (?, ?, ?, ?)";
 
-            PreparedStatement pstmt = conn.prepareStatement(updateQuery);
-
-            pstmt.setInt(1, playerValue);
+            PreparedStatement pstmt = conn.prepareStatement(insertScoreQuery);
+            pstmt.setInt(1, lastUserId);
             pstmt.setInt(2, highlv);
             pstmt.setInt(3, resetAtm);
-            pstmt.setInt(4, lastUserId);
-
+            pstmt.setInt(4, playerValue);
             pstmt.executeUpdate();
 
             pstmt.close();
-            conn.close();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         timer.cancel();
         Game.val = true;
+        Game.gameExit();
         Leaderboard ranking = new Leaderboard();
         ranking.setLocationRelativeTo(null);
         ranking.setVisible(true);
         tree.Start = null;
+        reset = 7;
+        level = 1;
     }
 
 }

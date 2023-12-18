@@ -15,7 +15,7 @@ import java.sql.*;
  */
 public class MainMenu extends javax.swing.JFrame {
     private static String MYSQL_JDBC_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame";
+    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame_nyusahin";
     private static String MYSQL_DB_USER = "root";
     private static String MYSQL_DB_USER_PASSWORD = "";
 
@@ -152,8 +152,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         // TODO add your handling code here:
-        Register regist = new Register();
-        this.setVisible(false);
+        Register regist = new Register(this);
         regist.setLocationRelativeTo(null);
         regist.setVisible(true);
     }//GEN-LAST:event_startButtonActionPerformed
@@ -162,7 +161,7 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Rules rule = new Rules();
         rule.setLocationRelativeTo(null);
-        this.setVisible(false);
+        this.dispose();
         rule.setVisible(true);
     }//GEN-LAST:event_rulesButtonActionPerformed
 
@@ -170,7 +169,7 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Leaderboard list = new Leaderboard();
         list.setLocationRelativeTo(null);
-        this.setVisible(false);
+        this.dispose();
         list.setVisible(true);
     }//GEN-LAST:event_leaderboardButtonActionPerformed
 
