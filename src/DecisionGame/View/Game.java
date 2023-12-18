@@ -65,7 +65,7 @@ public class Game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        enemyLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        enemyLabel.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         enemyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         enemyLabel.setText("-");
         enemyLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
