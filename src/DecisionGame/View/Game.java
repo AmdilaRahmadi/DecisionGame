@@ -65,24 +65,24 @@ public class Game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        enemyLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        enemyLabel.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         enemyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        enemyLabel.setText("asasasasasasasa");
+        enemyLabel.setText("-");
         enemyLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         enemypict.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         enemypict.setIcon(finalSetMons);
 
         levelLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        levelLabel.setText("Level:");
+        levelLabel.setText("Level:-");
 
         leftLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         leftLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        leftLabel.setText("asasasasasasasa");
+        leftLabel.setText("-");
         leftLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 0)));
 
         timerLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timerLabel.setText("00:05");
+        timerLabel.setText("-");
 
         leftButton.setText("left");
         leftButton.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +93,7 @@ public class Game extends javax.swing.JFrame {
 
         rightLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rightLabel.setText("asasasasasasasa");
+        rightLabel.setText("-");
         rightLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 0)));
 
         rightButton.setText("right");
@@ -105,11 +105,11 @@ public class Game extends javax.swing.JFrame {
 
         knightLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         knightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        knightLabel.setText("asasasasasasasa");
+        knightLabel.setText("-");
         knightLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
 
         resetLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        resetLabel.setText("Reset Chance: ");
+        resetLabel.setText("Reset Chance:- ");
 
         resetButton.setText("Reset");
         resetButton.addActionListener(new java.awt.event.ActionListener() {
