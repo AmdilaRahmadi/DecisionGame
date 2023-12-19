@@ -10,10 +10,6 @@ package DecisionGame.System;
  */
 public class Knight extends GameObject {
     
-    public Knight(String name, int value, int lvl, int nr) {
-        super(name, value, lvl, nr);
-    }
-    
     public Knight(String name, int value){
         super(name,value);
     }

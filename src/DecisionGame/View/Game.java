@@ -243,11 +243,10 @@ public class Game extends javax.swing.JFrame {
         // TODO add your handling code here:
         GameLogic.Surender();
     }//GEN-LAST:event_surenButonActionPerformed
-    
-    public void close(){
-        if(val = true){
-            this.setVisible(false);
-        } 
+
+    public static void gameExit(){
+        Register.gameFrame.setVisible(false);
+        Register.gameFrame.dispose();
     }
     /**
      * @param args the command line arguments
@@ -277,10 +276,9 @@ public class Game extends javax.swing.JFrame {
 //        //</editor-fold>
 //
 //        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Game().setVisible(true);
-//            }
+//        java.awt.EventQueue.invokeLater(() -> {
+//            gameFrame = new Game();
+//            gameFrame.setVisible(true);
 //        });
 //    }
 

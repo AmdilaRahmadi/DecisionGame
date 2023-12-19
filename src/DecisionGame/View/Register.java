@@ -14,15 +14,19 @@ import java.sql.*;
 
 public class Register extends javax.swing.JFrame {
     private static String MYSQL_JDBC_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame";
+    private static String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/decisiongame_nyusahin";
     private static String MYSQL_DB_USER = "root";
     private static String MYSQL_DB_USER_PASSWORD = "";
+    
+    private MainMenu mainMenu;
+    public static Game gameFrame;
 
     /**
      * Creates new form Register
      */
-    public Register() {
+    public Register(MainMenu mainMenu) {
         initComponents();
+        this.mainMenu = mainMenu;
     }
 
     /**
@@ -100,21 +104,23 @@ public class Register extends javax.swing.JFrame {
                 Class.forName(MYSQL_JDBC_DRIVER_CLASS);
                 Connection conn = DriverManager.getConnection(MYSQL_DB_URL, MYSQL_DB_USER, MYSQL_DB_USER_PASSWORD);
 
-                String insertQuery = "INSERT INTO user (Nama, Score, HighLv, NumReset) VALUES (?, ?, ?, ?)";
+                String insertQuery = "INSERT INTO user (Nama) VALUES (?)";
                 PreparedStatement pstmt = conn.prepareStatement(insertQuery);
                 pstmt.setString(1, username);
-                pstmt.setInt(2, 0);
-                pstmt.setInt(3, 1);
-                pstmt.setInt(4, 0);
                 pstmt.executeUpdate();
                 //pstmt.close();
                 //conn.close();
 
                 javax.swing.JOptionPane.showMessageDialog(this, "Registration successful!");
-                Game gim = new Game();
-                gim.setLocationRelativeTo(null);
-                this.setVisible(false);
-                gim.setVisible(true);
+                gameFrame = new Game();
+                gameFrame.setLocationRelativeTo(null);
+
+                if (mainMenu != null) {
+                    mainMenu.dispose();
+                }
+                
+                this.dispose();
+                gameFrame.setVisible(true);
                 
                 GameLogic GameStart = new GameLogic();
                 GameStart.Main();
