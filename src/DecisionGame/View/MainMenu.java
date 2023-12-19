@@ -154,6 +154,7 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Register regist = new Register(this);
         regist.setLocationRelativeTo(null);
+        //regist.setUndecorated();
         regist.setVisible(true);
     }//GEN-LAST:event_startButtonActionPerformed
 

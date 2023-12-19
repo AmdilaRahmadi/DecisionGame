@@ -192,7 +192,7 @@ public class GameLogic {
 
         timer = new Timer();
         TimerTask task = new TimerTask() {
-            int counter = 15;
+            int counter = 5;
 
             @Override
             public void run() {
